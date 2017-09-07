@@ -57,22 +57,36 @@ public class ProcessManage {
 			}			
 		  //!?? 使用某设备的时间
 			 if(instruction.indexOf("!")!=-1){
+				 boolean suc;
 				if(instruction.indexOf("A")!=-1){
 					i=Integer.parseInt(instruction.substring(2));
-					 
+					suc=DeviceManage.request(DeviceType.A, runningTask, i);
+					if(!suc){
+						//如果调配设备失败
+						psw.set(2);
+						block(runningTask, BlockReason.DEVICE_BUZY);
+					}
 				}
 				else if(instruction.indexOf("B")!=-1){
 					i=Integer.parseInt(instruction.substring(2));
-					
+					suc=DeviceManage.request(DeviceType.B, runningTask, i);
 				}
 				else{ 
 					i=Integer.parseInt(instruction.substring(2));
-					
+					suc=DeviceManage.request(DeviceType.C, runningTask, i);
 				}	 
+				if(!suc){
+					//如果调配设备失败
+					psw.set(2);
+				}
 			}
-		  //end命令表示可执行文件结束，二进制命令为010000000
+		  //end命令表示可执行文件结束
 		  if(instruction.equals("end")==true){
-			  	
+			  	//显示结果------------------
+			  	//清除内存
+			  	MemoryManage.removePCB(runningTask);
+			  	//设置psw
+			  	psw.set(0);
 			}
 			//---------------------------------------
 		}else{
