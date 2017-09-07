@@ -7,7 +7,7 @@ public class DeviceManage {
 	public static ArrayList<Device> deviceB=new ArrayList<>();
 	public static ArrayList<Device> deviceC=new ArrayList<>();
 	
-	public boolean request(DeviceType type,PCB pcb){
+	public static boolean request(DeviceType type,PCB pcb){
 		return false;
 	}
 }
