@@ -19,40 +19,43 @@ public class PCB {
     	idGenerate++;
     	this.id=idGenerate;
     }
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int[] getRegisters() {
+		return registers;
+	}
+	public void setRegisters(int[] registers) {
+		this.registers = registers;
+	}
+	public State getState() {
+		return state;
+	}
+	public void setState(State state) {
+		this.state = state;
+	}
+	public BlockReason getBlockReason() {
+		return blockReason;
+	}
+	public void setBlockReason(BlockReason blockReason) {
+		this.blockReason = blockReason;
+	}
+	public int getStartPointer() {
+		return startPointer;
+	}
+	public void setStartPointer(int startPointer) {
+		this.startPointer = startPointer;
+	}
+	public int getDataSize() {
+		return dataSize;
+	}
+	public void setDataSize(int dataSize) {
+		this.dataSize = dataSize;
+	}
     
-    public int[] getRegisters(){
-    	return registers;
-    }
-    public void setRegisters(int[] registers){
-    	this.registers=registers;
-    }
-    
-    public State getState(){
-    	return state;
-    }
-    public void setState(State state){ 	
-    	this.state=state;
-    }
-    
-    public BlockReason getBlockReason(){
-    	return blockReason;
-    }
-    public void setBlockReason(BlockReason blockReason){
-    	this.blockReason=blockReason;
-    }
-    
-    public int getStartPointer(){
-    	return startPointer;
-    }
-    public void setStartPointer(){
-    	this.startPointer=startPointer;
-    }
-    
-    public int getDataSize(){
-    	return dataSize;
-    }
-    public void setDataSize(int dataSize){
-    	this.dataSize=dataSize;
-    }
+   
     
 }

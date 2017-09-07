@@ -3,6 +3,8 @@ package process;
 import java.util.ArrayList;
 import java.util.BitSet;
 
+import Exeterns.Exetrans;
+
 public class ProcessManage {
 	private static int ax;
 	private static BitSet psw;
@@ -31,26 +33,92 @@ public class ProcessManage {
 		//判断中断
 		if(psw.isEmpty()){
 			//if 无中断
-			//获得命令数据，生成指令
-			
+			int startPointer=runningTask.getStartPointer();
+			int dataSize = runningTask.getDataSize();
+			//获得命令数据
+			ir=MemoryManage.readData(startPointer, dataSize, pc);
+			//生成指令
+			String instruction=Exetrans.byteToString(ir);
+			int i;
 			//pc+1
 			pc++;
 			//执行指令
+			if(instruction.indexOf("x=")!=-1){
+				  i=Integer.parseInt(instruction.substring(2));
+				//  System.out.println(i);
+				  String s1=Integer.toBinaryString(i);
+				  if(s1.length()==1){
+					  s1="000"+s1;
+				  }
+				  else if(s1.length()==2){
+					  s1="00"+s1;
+				  }
+				  else if(s1.length()==3){
+					  s1="0"+s1;
+				  }
+				  instruction="0000"+s1;  
+		     }
+			//x++  二进制命令为0001 0000
+			 if(instruction.indexOf("x++")!=-1){
+				instruction="00010000";
+			}
+			
+		    //x--  二进制命令为0010 0000
+		 if(instruction.indexOf("x--")!=-1){
+				instruction="00100000";	
+			}			
+		  //!?? 使用某设备的时间
+			 if(instruction.indexOf("!")!=-1){
+				if(instruction.indexOf("A")!=-1){
+					i=Integer.parseInt(instruction.substring(2));
+					  String s2=Integer.toBinaryString(i);
+					  if(s2.length()<2){
+						  s2="0"+s2;
+					  }
+					  instruction="001100"+s2;
+				}
+				else if(instruction.indexOf("B")!=-1){
+					i=Integer.parseInt(instruction.substring(2));
+					  String s2=Integer.toBinaryString(i);
+					  if(s2.length()<2){
+						  s2="0"+s2;
+					  }
+					  instruction="001101"+s2;
+				}
+				else{ 
+					i=Integer.parseInt(instruction.substring(2));
+					  String s2=Integer.toBinaryString(i);
+					  if(s2.length()<2){
+						  s2="0"+s2;
+					  }
+					  instruction="001110"+s2;
+				}	 
+			}
+		  //end命令表示可执行文件结束，二进制命令为010000000
+		  if(instruction.equals("end")==true){
+				  instruction="01000000"; 
+			}
+			//---------------------------------------
+		}else{
+			//else 处理中断
+			//判断中断类型
+			if(psw.get(0)){
+				//程序结束
+					//1.显示x
+					//2.撤销进程
+					//3.进程调度
+			}else if(psw.get(1)){
+				//时间片结束
+					//1.保存cpu现场
+					//2.进程调度
+			}else{
+				//I/O结束
+					//1.唤醒完成I/O的进程
+					//2.唤醒阻塞队列中的一个进程
+			}
 		}
 		
-		//else 处理中断
-		//判断中断类型
-			//程序结束
-				//1.显示x
-				//2.撤销进程
-				//3.进程调度
-			//时间片结束
-				//1.保存cpu现场
-				//2.进程调度
-			//I/O结束
-				//1.唤醒完成I/O的进程
-				//2.唤醒阻塞队列中的一个进程
-		//执行中断
+		
 
 	}
 	//自动随机生成进程

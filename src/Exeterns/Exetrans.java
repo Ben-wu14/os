@@ -5,7 +5,7 @@ public class Exetrans {
     public Exetrans(){
     }
     
-    public byte[] txtToByte(String path) throws Exception{  
+    public static byte[] txtToByte(String path) throws Exception{  
     	//整个txt里面的命令转为byte
     	int i = 0;
     	int length=0; //byte[]的长度
@@ -93,7 +93,7 @@ public class Exetrans {
 	    return (byte)a;  
 	}  
 
-	public String byteToString(byte b) throws Exception{
+	public static String byteToString(byte b){
 		//单条二进制命令转为String
 		String s=Integer.toBinaryString((int)b);//十进制先转为二进制
 		String s2;
@@ -175,7 +175,7 @@ public class Exetrans {
     	  return s2;	  
     	}
     	
-	public String[] byteToString(byte[] list) {
+	public static String[] byteToString(byte[] list) {
 		int size = list.length;
 		String[] result = new String[size];
 		for (int i = 0; i < result.length; i++) {
