@@ -94,12 +94,15 @@ public class ProcessManage {
 			//判断中断类型
 			if(psw.get(0)){
 				//程序结束
-					//1.显示x
+					//1.显示x-------------------
 					//2.撤销进程
+					destroy(runningTask);
 					//3.进程调度
+					dispatchTask(true);
 			}else if(psw.get(1)){
 				//时间片结束
 					//1.保存cpu现场
+					
 					//2.进程调度
 			}else{
 				//I/O结束
@@ -158,5 +161,16 @@ public class ProcessManage {
 		//判断阻塞原因，寻找对应阻塞队列
 		//修改进程状态
 		//把进程从阻塞队列中移至就绪队列
+	}
+	//时钟
+	public static void timer(){
+		
+	}
+	//保存当前状态
+	public static void  savePCB() {
+		runningTask.setAx(ax);
+		runningTask.setPc(pc);
+		runningTask.setPsw(psw);
+		//未完成
 	}
 }

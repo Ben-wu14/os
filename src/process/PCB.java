@@ -1,8 +1,12 @@
 package process;
 
+import java.util.BitSet;
+
 public class PCB {
     private int id;//进程编号
-    private int[] registers;//寄存器的列表，顺序为ax,psw,pc
+    private int ax;
+    private int pc;
+    private BitSet psw;
     private State state;//进程状态，有RUNNING,BLOCK,READY
     private BlockReason blockReason;//阻塞原因，有TIMEOUT,MEMFULL,DEVICEBUZY,NONE
     private int startPointer;//内存数据的起始指针
@@ -11,7 +15,9 @@ public class PCB {
 
     public PCB() {
 		// TODO Auto-generated constructor stub
-    	setRegisters(new int[3]);
+    	ax=0;
+    	pc=0;
+    	psw=new BitSet(3);
     	setID();
 	}
     public void setID(){
@@ -22,14 +28,26 @@ public class PCB {
 	public int getId() {
 		return id;
 	}
+	public int getAx() {
+		return ax;
+	}
+	public void setAx(int ax) {
+		this.ax = ax;
+	}
+	public int getPc() {
+		return pc;
+	}
+	public void setPc(int pc) {
+		this.pc = pc;
+	}
+	public BitSet getPsw() {
+		return psw;
+	}
+	public void setPsw(BitSet psw) {
+		this.psw = psw;
+	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int[] getRegisters() {
-		return registers;
-	}
-	public void setRegisters(int[] registers) {
-		this.registers = registers;
 	}
 	public State getState() {
 		return state;
